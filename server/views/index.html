@@ -8,12 +8,13 @@
   <div class="container">
 
     <h1>{{ title }}</h1>
+    <p>{{ output }}</p>
 
-  <div class="groups">
-    <ul>
-
-      <li>{{ result }}</li>
-
-    </ul>
+  <div class="output">
+    <ol>
+      {% for chunk in result %}
+        <li>{{ chunk }}</li>
+      {% endfor %}
+    </ol>
   </div>
 {% endblock %}

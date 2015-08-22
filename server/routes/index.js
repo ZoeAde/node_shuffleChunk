@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-console.log('hello')
+
+console.log('hello');
 
 router.get('/', function(req, res, next) {
   res.send('<form method="post" action="/submit"><input placeholder="List Students" name="names" type="text" required><p></p><input placeholder="Number of Groups" name="groups" type="text" required><p></p><input type="submit"></form>');
@@ -9,16 +10,15 @@ router.get('/', function(req, res, next) {
 
 router.post('/submit', function(req, res, next) {
   var nameArray = req.body.names;
-  var newArr = nameArray.replace(/,/g, "").split(" ");
+  var people = nameArray.replace(/,/g, "").split(" ");
   var groupNumber = parseInt(req.body.groups);
-  var shuff = shuffle(newArr);
-  var result = chunk(shuff, groupNumber);
+  var result = chunk(people, groupNumber);
   res.render('index', {title: "Shuffle Chunk Groups", result: result});
-  console.log(result);
 });
 
-var shuffled = [];
+
 function shuffle(array) {
+  var shuffled = [];
   var arr = array.slice(0);
   for (var i = 0; i < array.length; i++) {
     var random = Math.floor(Math.random() * arr.length);
@@ -28,8 +28,10 @@ function shuffle(array) {
   return shuffled;
 }
 
-var answer = [];
-function chunk(shuffledArray, integer) {
+
+function chunk(array, integer) {
+  var shuffledArray = shuffle(array);
+  var answer = [];
   var num = integer;
   var arr = shuffledArray.slice(0);
   var arrayInteger = 0;
@@ -47,6 +49,7 @@ function chunk(shuffledArray, integer) {
       index = 0;
     };
   };
+  console.log(answer);
   return answer;
 };
 
